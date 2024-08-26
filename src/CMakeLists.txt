@@ -23,7 +23,7 @@ endif()
 
 find_package(zstd)
 if (${zstd_FOUND})
-  list(APPEND DEPENDENCIES zstd::libzstd)
+  list(APPEND DEPENDENCIES zstd::libzstd_static)
 else()
   message(WARNING "Dependency zstd not found, disabling")
   target_compile_definitions(mcap PUBLIC "MCAP_COMPRESSION_NO_ZSTD")
