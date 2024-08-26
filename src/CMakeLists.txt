@@ -11,6 +11,8 @@ target_include_directories(mcap PUBLIC
   $<INSTALL_INTERFACE:include/>
 )
 
+target_compile_features(mcap PUBLIC cxx_std_17)
+
 set(DEPENDENCIES "")
 
 find_package(lz4)
