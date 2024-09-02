@@ -19,11 +19,25 @@ else()
   set(DOWNLOAD_EXTRACT_TIMESTAMP_ARG "")
 endif()
 set(MCAP_TAG "releases/cpp/v${VERSION}")
-FetchContent_Declare(
-  mcap
-  URL https://github.com/foxglove/mcap/archive/refs/tags/${MCAP_TAG}.tar.gz
-  ${DOWNLOAD_EXTRACT_TIMESTAMP_ARG}
-)
+
+set(MCAP_GIT_REPOSITORY "" CACHE STRING "mcap git repository URL for fetching content")
+set(MCAP_GIT_TAG ${MCAP_TAG} CACHE STRING "mcap git tag for fetching content")
+
+if(MCAP_GIT_REPOSITORY)
+  FetchContent_Declare(
+    mcap
+    GIT_REPOSITORY ${MCAP_GIT_REPOSITORY}
+    GIT_TAG ${MCAP_GIT_TAG}
+    ${DOWNLOAD_EXTRACT_TIMESTAMP_ARG}
+  )
+else()
+  FetchContent_Declare(
+    mcap
+    URL https://github.com/foxglove/mcap/archive/refs/tags/${MCAP_TAG}.tar.gz
+    ${DOWNLOAD_EXTRACT_TIMESTAMP_ARG}
+  )
+endif()
+
 FetchContent_MakeAvailable(mcap)
 set(MCAP_INCLUDE_DIR ${mcap_SOURCE_DIR}/cpp/mcap/include/)
 
