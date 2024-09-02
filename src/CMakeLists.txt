@@ -4,6 +4,10 @@ if (MCAP_BUILDER_BUILD_SHARED_LIB)
   add_library(mcap SHARED lib.cpp)
 else()
   add_library(mcap lib.cpp)
+  get_target_property(target_type mcap TYPE)
+  if (target_type STREQUAL STATIC_LIBRARY)
+    target_compile_definitions(mcap PUBLIC MCAP_STATIC_DEFINE)
+  endif()
 endif()
 
 target_include_directories(mcap PUBLIC
